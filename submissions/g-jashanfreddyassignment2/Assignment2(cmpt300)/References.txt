@@ -1,7 +1,0 @@
-
-References:
-
-Brian Fraser's Videos
-Beej Networking Guide
-
-
