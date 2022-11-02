@@ -1,0 +1,1 @@
+The program includs some bugs and therefore, it would not work similar to what assignment 2 is required. I was only checking it only on my one local machine by opening two terminals. Running one s-talk and receivng data from netcat works. However, running two programs only works on one-side. And I was not able to find bugs.

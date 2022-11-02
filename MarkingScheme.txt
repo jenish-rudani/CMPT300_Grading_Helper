@@ -1,0 +1,70 @@
+	   Assignment #2 (STALK)
+	   -------------
+
+	Documentation/Commenting…		/2
+	Design/Style/Implementation...	/15
+	Execution...				/13
+	Sub-Total:				      /30
+	Penalty:					/0
+	Total:					/30
+
+
+DOCUMENTATION/COMMENTING
+
+They should have a reasonable amount of commenting of their code.
+
+DESIGN/STYLE/IMPLEMENTATION
+
+The structure of these assignments should be very similar.  There should be
+4 threads in the s-talk process, the keyboard, the screen, the send, and
+the receive thread.  They may possibly have had a 5th thread that was only
+used to join the other threads to handle exiting the program.  Deduct 5 
+marks from design if they have more or less than these threads.
+
+They should be sharing information between the keyboard/send threads, and
+receive/screen threads using two lists, one for each pair of threads.  
+Deduct 3 marks if they do not have two lists.
+
+They must use mutexes to protect against simultaneous access of the lists
+by different threads.  They should check the mutex before accessing ANY of
+the list functions (even ListCount).  They should also use conditions to
+stop the send thread from constantly looping while waiting for something to 
+send, and another condition to stop the screen thread when there is nothing 
+to display.  Deduct 6 marks if they do not use either mutexes or 
+conditions.  Deduct 3 marks if they use mutexes but no conditions.
+
+Remember that they should always check the return values from each system
+call. Don't deduct marks if they check most of the return values, but if
+they miss checking a large number of return values deduct 3 marks.
+
+They need to create a buffer for each message at the originator of the
+message.  For example, the keyboard thread should dynamically allocate
+memory for a new typed message, and the receive thread should dynamically
+allocate memory for a new received message.  The deliverer of the message 
+must free that memory.  For example, the send thread should free the 
+memory for a message that it takes off the send list.  Deduct 5 marks if 
+they simply used a static buffer for each message. Deduct 3 marks if they 
+allocate memory but don't free it properly.
+
+They should be doing some cleanup upon exiting the program when they
+receive the "!" command either from the local user or the remote process. 
+For example, they should be freeing any dynamic memory, closing the socket,
+destroying the mutexes/conditions, etc.  They should also be cancelling 
+all the threads before exiting.  Deduct 4 marks if they do not do any 
+cleanup at all, less marks if they do some but not all cleanup.
+
+EXECUTION
+
+If the program seg faults immediately, spend a minute or two to figure out
+why.  If you can't figure it out give them 0 for execution, if you are able
+to fix it take off 3-8 marks (depending on how big a problem it was).
+
+Test that their program works correctly, i.e. messages are sent and 
+displayed correctly.  Entering the end character (probably "!") should
+end both the local process and the remote process.  I.e. when a local user
+types the "!" command that message should be sent to the remote process as
+well so that it will end.  Deduct 4 marks if only the local process ends.
+
+Note that not everyone will have included a list.c and list.h, they may
+just be using the ones I've provided.  They should have provided a
+Makefile, deduct 2 marks if they didn't.
